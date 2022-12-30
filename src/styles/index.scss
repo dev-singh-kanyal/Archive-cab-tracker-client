@@ -1,0 +1,137 @@
+.navComponent
+*{
+    display: flex;
+    justify-content: space-around;
+}
+
+.LogoBox
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footer
+{
+    height:100%;
+    box-shadow: 2px solid rgb(105, 102, 102);
+}
+
+.lists
+{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:60px;
+}
+
+.ListItems
+{
+    display: flex;
+    justify-content: center;
+}
+
+.footerIcons
+{
+    display: flex;
+    justify-content: center;
+    gap:40px;
+}
+
+.main-component-wrapper
+{
+    padding: 1px;
+    min-height: calc(100vh - 64px);
+}
+
+
+
+.mainComponent
+{
+    background-image: url('../media/refinaryImg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    background-position: bottom center;
+    margin-top:0px;
+    z-index: -4;
+    filter: blur(0px); /* Adding blur background image */
+}
+
+
+.type
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.userDetails
+{   top:110px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+}
+ 
+ 
+.VehicleNo
+{   
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 30%;
+    display: flex;
+    max-width: 170px;
+    align-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3px;
+    background-color: rgb(255, 255, 36);
+    border-radius: 0.5rem;
+    border-style: double;
+    box-shadow: 1px 2px 9px #2d292a;
+    gap: 18px;
+}
+.Number
+{
+    align-items: center;
+    font-size:17px;
+    font-weight: bold;
+}
+
+.Company
+{
+    margin-top: 20px;
+}
+
+.formInputElement
+{
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+}
+
+body 
+{
+    min-height: 100vh !important;
+    margin: 0;
+}
+
+.UserAuth
+{
+    background-image: url('../media/user.jpg');
+    background-position: center bottom;
+    background-size: cover;
+    z-index: -3;
+    height: 100vh;
+}
+.footerLogo
+{
+    display: flex;
+    justify-content: center;
+
+    padding-top: 190px;
+}
