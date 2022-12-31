@@ -1,14 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Button, TextField, FormControlLabel, Checkbox, Box, Typography, Container } from '@mui/material';
 import logo from "../media/logo2.png"
-import { createTheme,ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../helpers/helpers'
+
 
 const theme = createTheme();
 
@@ -21,21 +17,9 @@ const textFieldProps = {
   className: 'myfield',
 }
 
- 
+
 export function SignIn() {
-
-  const checkUser = async (user) => {
-    const response = await fetch('http://127.0.0.1:5050/users/login', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      credentials: "same-origin",
-      headers: {
-        'Content-type': 'application/json'
-      },
-    })
-
-    if (!response.ok) alert(`An error occured ${response.statusText}`);
-  }
+  const history = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,61 +27,66 @@ export function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     }
-    checkUser(user);
+
+    loginUser(user).then(res => {
+      if (res.isAuth) history('/');
+      else history('/login');
+    })
+      .catch(err => { throw err })
   };
 
   return (
     <>
-    <div className='mainComponent'>
-      <ThemeProvider theme={theme} >
-        <Container   className="signinBox" maxWidth="xs">
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <img src={logo} style={{ width: "100px", height: "auto" ,padding:"20px"}} alt=""></img>
-            <Typography component="h1" variant="h5" sx={{color:"white"}}>
-              Sign in
-            </Typography>
-            
-            <div className='formInputElement'>
+      <div className='mainComponent'>
+        <ThemeProvider theme={theme} >
+          <Container className="signinBox" maxWidth="xs">
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <img src={logo} style={{ width: "100px", height: "auto", padding: "20px" }} alt=""></img>
+              <Typography component="h1" variant="h5" sx={{ color: "white" }}>
+                Sign in
+              </Typography>
 
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 ,padding:"30px",color:"black",borderColor:"white"}}>
-              <TextField
-                {...textFieldProps}
-                label="Email Address"
-                id="email"
-                name="email"
-              />
-              <TextField
-                {...textFieldProps}
-                label="Password"
-                id="password"
-                name="password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 ,background:"green"}}
-              >
-                Sign In
-              </Button>
+              <div className='formInputElement'>
+
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, padding: "30px", color: "black", borderColor: "white" }}>
+                  <TextField
+                    {...textFieldProps}
+                    label="Email Address"
+                    id="email"
+                    name="email"
+                  />
+                  <TextField
+                    {...textFieldProps}
+                    label="Password"
+                    id="password"
+                    name="password"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, background: "green" }}
+                  >
+                    Sign In
+                  </Button>
+                </Box>
+              </div>
             </Box>
-            </div>
-          </Box>
 
-        
-        </Container>
-      </ThemeProvider>
-    </div>
+
+          </Container>
+        </ThemeProvider>
+      </div>
     </>
   );
 }

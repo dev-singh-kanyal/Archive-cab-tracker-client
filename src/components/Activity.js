@@ -68,7 +68,7 @@ export function Activity() {
           </>
           : <>
             <div style={{display:"flex",justifyContent:"center",alignItems:"baseline",paddingTop:"100px"}}>
-              <img src={noResults} style={{width:"auto",height:"400px"}}></img>
+              <img src={noResults} style={{width:"350px",height:"auto",  boxShadow: "3px 2px 4px #2d292a"}}></img>
             </div>
           </>
         }

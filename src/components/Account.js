@@ -7,7 +7,7 @@ import  {Box} from '@material-ui/core'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import RestoreIcon from '@mui/icons-material/Restore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import Footer from '../layout/Footer'
 export function Account() {
   const [value, setValue] = useState(0);
   return (
@@ -44,24 +44,12 @@ export function Account() {
         </Button>
     </div>
     <div className='footerLogo'>
-      <img src={logo} style={{width:"80px",zIndex:"4"}}>
+      <img src={logo} style={{width:"80px",zIndex:"0"}}>
 
       </img>
     </div>
-    <Box sx={{ width: 500}}>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-      <BottomNavigationAction label="Home" to-link="/" icon={<HomeRoundedIcon />} />
-      <BottomNavigationAction label="Activity" to-link="#" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Previous" to-link="/" icon={<ArrowBackIcon/>} />
-      </BottomNavigation>
-    </Box>
     </div>
+     <Footer/>
     </>
   )
 }

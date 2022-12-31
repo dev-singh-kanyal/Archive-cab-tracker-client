@@ -4,11 +4,12 @@ import LayoutComponent from "../layout/layoutcomponent"
 
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
-
+import {useNavigate} from "react-router-dom"
 
 export function Client() {
 
   const [checked, setChecked] = useState(true);
+  const history = useNavigate();
   // componentDidMount()
   // {
   //   navigator.geolocation.getCurrentPosition(function(position) {
