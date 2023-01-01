@@ -16,6 +16,7 @@ function App() {
     checkAuth().then(id => {
       if (id) setIsAuth(true);
       else setIsAuth(false);
+      console.log(id)
     })
   }, [])
 

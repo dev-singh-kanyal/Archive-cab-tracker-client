@@ -1,6 +1,6 @@
 import config from "../config/config"
 
-const checkAuth = () => fetch(`${config.API_BASE_URL}/users/auth`, {
+const checkAuth = () => fetch(`${config.API_BASE_URL}/drivers/auth`, {
   method: 'POST',
   credentials: 'include',
   body: '',
@@ -19,7 +19,7 @@ const checkAuth = () => fetch(`${config.API_BASE_URL}/users/auth`, {
  * @param {Object} user
  * @returns {Promise} Server response json
  */
-const loginUser = (user) => fetch(`${config.API_BASE_URL}/users/login`, {
+const loginUser = (user) => fetch(`${config.API_BASE_URL}/drivers/login`, {
   method: 'POST',
   body: JSON.stringify(user),
   credentials: "include",
