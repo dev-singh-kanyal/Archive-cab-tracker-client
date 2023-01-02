@@ -6,17 +6,17 @@ import { checkAuth } from "./helpers/helpers"
 
 function App() {
   const [isAuth, setIsAuth] = useState(null)
-  const handleUserState = (userId) => {
-    console.log(userId);
-    if (userId) setIsAuth(true);
+  const handleUserState = (res) => {
+    console.log(res);
+    if (res.isAuth) setIsAuth(true);
     else setIsAuth(false);
   }
 
   useEffect(() => {
-    checkAuth().then(id => {
-      if (id) setIsAuth(true);
+    checkAuth().then(res => {
+      console.log(res)
+      if (res.isAuth) setIsAuth(true);
       else setIsAuth(false);
-      console.log(id)
     })
   }, [])
 

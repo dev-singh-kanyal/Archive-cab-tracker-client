@@ -10,9 +10,9 @@ const UnauthorizedComponent = () => (
 const ProtectedComponent = ({ children, userState, handleUserState }) => {
   const history = useNavigate()
   useEffect(() => {
-    checkAuth().then(id => {
-      handleUserState(id);
-      if (!id) return history('/login');
+    checkAuth().then(res => {
+      handleUserState(res);
+      if (!res.isAuth) return history('/login');
     })
     .catch(err => { throw err });
   })
