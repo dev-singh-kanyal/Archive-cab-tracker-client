@@ -5,18 +5,12 @@ import LayoutComponent from "../layout/layoutcomponent"
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
 import {useNavigate} from "react-router-dom"
+import { useEffect } from 'react';
 
-export function Client() {
+const Client=({driver})=> {
 
   const [checked, setChecked] = useState(true);
   const history = useNavigate();
-  // componentDidMount()
-  // {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     console.log("Latitude is :", position.coords.latitude);
-  //     console.log("Longitude is :", position.coords.longitude);
-  //   });
-  // }
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -29,12 +23,12 @@ export function Client() {
         <div className='Icons'>
           <div className='type'>
           <img src="https://img.icons8.com/bubbles/50/null/user.png"/>
-          <span style={{fontSize:"12px",paddingRight:"10px"}}>User name</span>
+          <span style={{fontSize:"12px",paddingRight:"10px"}}>{driver.driverName}</span>
           </div>
 
           <div className='type'>
           <img src="https://img.icons8.com/color/40/null/interstate-truck.png"/>
-          <span style={{fontSize:"12px"}}>Vehicle name</span>
+          <span style={{fontSize:"12px"}}>{driver.vehicle.vehicleName}</span>
           </div>
 
 
@@ -45,14 +39,14 @@ export function Client() {
               <img src={logo} style={{width:"20px", height:"auto"}} alt=""></img>
             </div>
             <div className='Number'>
-              AS-18 32D 28 
+              {driver.vehicle.vehicleNo}
             </div>
           </div>
 
         
         <div className='Company'>
           <div className='type'>
-          <span style={{fontSize:"large"}}>Company Details</span>
+          <span style={{fontSize:"large"}}>Indian Oil Corp. Ltd</span>
           </div>
 
           <div className='type'>

@@ -4,11 +4,18 @@ import { SignIn, Client, Account, Activity, ProtectedComponent } from "./compone
 import './styles/index.scss'
 import { checkAuth } from "./helpers/helpers"
 
+
 function App() {
   const [isAuth, setIsAuth] = useState(null)
+
+  const [user,setUser] = useState(null)
+
   const handleUserState = (res) => {
     console.log(res);
-    if (res.isAuth) setIsAuth(true);
+    if (res.isAuth){
+      // use state for storing the value
+      setIsAuth(true);
+    } 
     else setIsAuth(false);
   }
 
@@ -24,28 +31,32 @@ function App() {
     userState: isAuth,
   };
 
+  const handleUser = (user) => {
+    setUser(user);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={
           <ProtectedComponent {...ProtectedCompProps} handleUserState={handleUserState}>
-            <Client />
+            <Client driver={user}/>
           </ProtectedComponent>
         } />
 
         <Route exact path="/login" element={
-          <SignIn />
+          <SignIn user={user} handleUser={handleUser} />
         } />
 
         <Route exact path="/account" element={
           <ProtectedComponent {...ProtectedCompProps} handleUserState={handleUserState} >
-            <Account />
+            <Account driver={user} />
           </ProtectedComponent>
         } />
 
         <Route exact path="/activity" element={
           <ProtectedComponent {...ProtectedCompProps} handleUserState={handleUserState}>
-            <Activity />
+            <Activity  driver={user}/>
           </ProtectedComponent>
         } />
 

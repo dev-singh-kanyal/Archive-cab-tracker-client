@@ -4,7 +4,7 @@ import logo from "../media/logo2.png"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../helpers/helpers'
-
+import { useState } from 'react';
 
 const theme = createTheme();
 
@@ -18,8 +18,10 @@ const textFieldProps = {
 }
 
 
-export function SignIn() {
+export function SignIn({user, handleUser}) {
   const history = useNavigate();
+  const [driver,setDriver] = useState(null)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -29,7 +31,10 @@ export function SignIn() {
     }
 
     loginUser(user).then(res => {
-      if (res.isAuth) history('/');
+      if (res.isAuth) {
+        handleUser(res);
+        history('/');
+      }
       else history('/login');
     })
       .catch(err => { throw err })
