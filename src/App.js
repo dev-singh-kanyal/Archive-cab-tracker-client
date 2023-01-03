@@ -13,7 +13,6 @@ function App() {
   const handleUserState = (res) => {
     console.log(res);
     if (res.isAuth){
-      // use state for storing the value
       setIsAuth(true);
     } 
     else setIsAuth(false);
@@ -32,6 +31,10 @@ function App() {
   };
 
   const handleUser = (user) => {
+    localStorage.setItem('vehicleId', user.vehicle.vehicleId);
+    localStorage.setItem('driverName',user.driverName);
+    localStorage.setItem('VehicleNo',user.vehicle.vehicleNo);
+    localStorage.setItem('VehicleName',user.vehicle.vehicleName)
     setUser(user);
   }
 

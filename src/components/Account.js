@@ -15,12 +15,12 @@ const  Account=({driver}) =>{
         <div className='Icons'>
           <div className='type'>
           <img src="https://img.icons8.com/bubbles/80/null/user.png"/>
-          <span style={{fontSize:"16px",paddingRight:"10px"}}>{driver.driverName}</span>
+          <span style={{fontSize:"16px",paddingRight:"10px"}}>{localStorage.getItem('driverName')}</span>
           </div>
 
           <div className='type'>
           <img src="https://img.icons8.com/color/80/null/interstate-truck.png"/>
-          <span style={{fontSize:"16px"}}>{driver.vehicle.vehicleName}</span>
+          <span style={{fontSize:"16px"}}>{localStorage.getItem('VehicleName')}</span>
           </div>
 
           <div className='VehicleNo' style={{marginLeft:"5%"}}>
@@ -30,7 +30,7 @@ const  Account=({driver}) =>{
               <img src={logo} style={{width:"20px", height:"auto"}} alt=""></img>
             </div>
             <div className='Number'>
-              {driver.vehicle.vehicleNo}
+              {localStorage.getItem('VehicleNo')}
             </div>
           </div>
         </div>

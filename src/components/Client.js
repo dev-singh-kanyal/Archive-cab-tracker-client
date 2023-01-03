@@ -1,20 +1,57 @@
-import {React,useState} from 'react'
+import {Component, React,useState} from 'react'
 import logo from "../media/logo2.png"
 import LayoutComponent from "../layout/layoutcomponent"
-
-import Switch from '@mui/material/Switch';
-import { FormControlLabel } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import {useNavigate} from "react-router-dom"
 import { useEffect } from 'react';
 
-const Client=({driver})=> {
+import config from '../config/config'
 
+const Client=({driver})=> {
   const [checked, setChecked] = useState(true);
   const history = useNavigate();
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const [pos, setPos] = useState(null);
+  const [locationInfo,setLocationInfo] = useState(false)
+  const handleChangeLocation = (event) => {
+    //setChecked(event.target.checked);
+    
+    //const [currentVehicle, setCurrentVehicle] = useState(null);
+    const currentVehicle = localStorage.getItem('vehicleId'); 
+      // update location on db
+      const pushCurrPos = async () => {
+        await fetch(`${config.API_BASE_URL}/update/${currentVehicle}`, {
+          method: "POST",
+          body: JSON.stringify({ pos: pos }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+      }
+  
+      // get location from gps
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(function (pos) {
+          setLocationInfo(true);
+          console.log(pos.timestamp, ': ', pos.coords.longitude, pos.coords.latitude);
+          setPos({
+            timestamp: pos.timestamp,
+            coords: {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude
+            }
+          })
+  
+          if (currentVehicle) pushCurrPos();
+        });
+      }
   };
+
+  useEffect(()=>{
+    handleChangeLocation()
+  },[])
+
+  
+  
   return (
     
     <>
@@ -23,12 +60,12 @@ const Client=({driver})=> {
         <div className='Icons'>
           <div className='type'>
           <img src="https://img.icons8.com/bubbles/50/null/user.png"/>
-          <span style={{fontSize:"12px",paddingRight:"10px"}}>{driver.driverName}</span>
+          <span style={{fontSize:"12px",paddingRight:"10px"}}>{localStorage.getItem('driverName')}</span>
           </div>
 
           <div className='type'>
           <img src="https://img.icons8.com/color/40/null/interstate-truck.png"/>
-          <span style={{fontSize:"12px"}}>{driver.vehicle.vehicleName}</span>
+          <span style={{fontSize:"12px"}}>{localStorage.getItem('VehicleName')}</span>
           </div>
 
 
@@ -39,7 +76,7 @@ const Client=({driver})=> {
               <img src={logo} style={{width:"20px", height:"auto"}} alt=""></img>
             </div>
             <div className='Number'>
-              {driver.vehicle.vehicleNo}
+              {localStorage.getItem('VehicleNo')}
             </div>
           </div>
 
@@ -60,9 +97,13 @@ const Client=({driver})=> {
             <div>
           </div>
           <div>
-          <FormControlLabel control={<Switch 
-          onChange={handleChange}
-          defaultChecked />} label="Enabled Location" />
+          {/* <FormControlLabel control={<Switch 
+          onClick={handleChange}
+          //defaultChecked
+          />} label="Enabled Location" /> */}
+          <br/>
+          {locationInfo ? <Alert severity="success">Your location is being shared</Alert> :   <Alert severity="warning">Please Click 'Allow' to send your location</Alert>}
+
           </div>
           </div>
           </div>
